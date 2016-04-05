@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Packages
+echo "Package inventory:"
+rpm -qa --qf "%{name}\n" | sort
+
+# Users + main group
+echo ""
+echo "User inventory:"
+for user in $(getent passwd | sort | cut -d: -f1); do
+    printf "%s: %s\n" $user "$(id -nG $user)"
+done
